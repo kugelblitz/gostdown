@@ -257,9 +257,15 @@ for ($t = 1; $t -le $inserted_tables.Count; $t++)
       {
         $row.Cells.Item(2).Range.OMaths.Item(1).Remove()
       }
-                
       $row.Cells.Item(2).VerticalAlignment = [Microsoft.Office.Interop.Word.wdCellVerticalAlignment]::wdCellAlignVerticalCenter;
       $row.Cells.Item(2).Select()
+      $selection.Find.Execute("\left", $True, $True, $False, $False, $False, $True, `
+         [Microsoft.Office.Interop.Word.wdFindWrap]::wdFindContinue, $False, "",   `
+         [Microsoft.Office.Interop.Word.wdReplace]::wdReplaceOne) | out-null
+      $selection.Find.Execute("\right", $True, $True, $False, $False, $False, $True, `
+         [Microsoft.Office.Interop.Word.wdFindWrap]::wdFindContinue, $False, "",   `
+         [Microsoft.Office.Interop.Word.wdReplace]::wdReplaceOne) | out-null
+          
       $selection.ClearParagraphAllFormatting()
       $pf = $selection.paragraphFormat
       $pf.LeftIndent = $word.CentimetersToPoints(0)
