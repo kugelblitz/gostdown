@@ -46,7 +46,7 @@
     </term>
     <term name="pages-ru" form="short">С.</term>
     <term name="number-of-pages-ru" form="short">с.</term>
-    <!-- Последующие термины не используются в библиографическом списке, но позволяют pandoc-citeproc-у различать ссылки с номерами страниц и главами -->
+    <!-- Последующие термины не используются в библиографическом списке, но позволяют citeproc-у различать ссылки с номерами страниц и главами -->
     <term name="chapter-ru" form="short" text-case="sentence" plural="never">гл.</term>
     <term name="line-ru" form="short">стр.</term>
     <term name="chapter-ru">
