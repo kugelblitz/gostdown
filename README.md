@@ -119,7 +119,9 @@ PDF-файлы.
 Pandoc добавляет этот путь в `PATH` автоматически.
 4. Microsoft PowerShell. Входит в Windows начиная с 7-й версии.
 5. Шрифты компании «Паратайп»:
-   [PT Serif, PT Sans и PT Mono](https://www.paratype.ru/public/).
+   [PT Serif](https://www.paratype.ru/fonts/pt/pt-serif?tab=packages),
+   [PT Sans](https://www.paratype.ru/fonts/pt/pt-sans?tab=packages) и
+   [PT Mono](https://www.paratype.ru/fonts/pt/pt-mono?tab=packages).
    Они бесплатны для скачивания, использования и распространения.
    Сгенерированные `.docx` файлы содержат эти шрифты внутри себя,
    что позволяет открывать эти файлы на системах, где эти шрифты
