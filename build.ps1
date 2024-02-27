@@ -226,6 +226,9 @@ for ($t = 1; $t -le $inserted_tables.Count; $t++)
   
   if ($table.Cell(1, 1).Range.Style.NameLocal -eq "AbbreviationsTable")
   {
+    $table.AllowAutoFit = $True
+    $table.AutoFitBehavior([Microsoft.Office.Interop.Word.wdAutoFitBehavior]::wdAutoFitContent)
+
     $table.Style = $TableStyleAbbreviations
     $table.Select()
     $pf = $selection.paragraphFormat
@@ -239,9 +242,6 @@ for ($t = 1; $t -le $inserted_tables.Count; $t++)
     continue
   }
   
-  # This is to fix the widths of the columns
-  $table.AllowAutoFit = $False
-	  
   # Numbered equations are 2-column tables without titles and borders, and with equations in both columns
   if ([string]::IsNullOrEmpty($table.Title) `
     -and (-not $table.Rows.Item(1).Cells.Borders.Item([Microsoft.Office.Interop.Word.wdBorderType]::wdBorderBottom).Visible) `
@@ -249,6 +249,10 @@ for ($t = 1; $t -le $inserted_tables.Count; $t++)
 	  -and ($table.Cell(1,1).Range.OMaths.Count -eq 1) `
 	  -and ($table.Cell(1,2).Range.OMaths.Count -eq 1))
   {
+    $table.LeftPadding = 0
+    $table.RightPadding = 0
+    $table.AllowAutoFit = $True
+
     # There can be multiple equations (rows) in one table
     foreach ($row in $table.Rows)
     {
@@ -265,7 +269,7 @@ for ($t = 1; $t -le $inserted_tables.Count; $t++)
       $selection.Find.Execute("\right", $True, $True, $False, $False, $False, $True, `
          [Microsoft.Office.Interop.Word.wdFindWrap]::wdFindContinue, $False, "",   `
          [Microsoft.Office.Interop.Word.wdReplace]::wdReplaceOne) | out-null
-          
+         
       $selection.ClearParagraphAllFormatting()
       $pf = $selection.paragraphFormat
       $pf.LeftIndent = $word.CentimetersToPoints(0)
@@ -284,6 +288,8 @@ for ($t = 1; $t -le $inserted_tables.Count; $t++)
   }
   else # Ordinary tables
   {
+    $table.AllowAutoFit = $True
+
     # Count only tables with title (and number)
     if (-not [string]::IsNullOrEmpty($table.Title))
     {
@@ -305,7 +311,7 @@ for ($t = 1; $t -le $inserted_tables.Count; $t++)
       $table.Style = $TableStyleGostNoHeader
     }
     
-    # Fix alignment of display-math objects so they math the aligment of text in the cells
+    # Fix alignment of display-math objects so they match the aligment of text in the cells
     foreach ($row in $table.Rows)
     {
       foreach ($cell in $row.Cells)
