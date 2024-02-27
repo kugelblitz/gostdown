@@ -301,8 +301,9 @@ for ($t = 1; $t -le $inserted_tables.Count; $t++)
     $pf = $selection.paragraphFormat
     $pf.LineSpacingRule = [Microsoft.Office.Interop.Word.wdLineSpacing]::wdLineSpaceSingle
     
-    # If the first row has line under it, then it is a table with a header row
-    if ($table.Rows.Item(1).Cells.Borders.Item([Microsoft.Office.Interop.Word.wdBorderType]::wdBorderBottom).Visible)
+    # Check if table has header
+    $table.Cell(1,1).Select()    
+    if ($selection.Rows.HeadingFormat -eq -1)
     {
       $table.Style = $TableStyleGost
     }
